@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zombie Assault</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #0d0d0d;
+    overflow: hidden;
+    height: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #eee;
+  }
+  #game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+  canvas {
+    display: block;
+    background: #1b1f1b;
+    cursor: crosshair;
+  }
+  #hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px black;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+  #hud .bar-bg {
+    width: 200px;
+    height: 14px;
+    background: #333;
+    border: 1px solid #000;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 2px;
+  }
+  #hud .bar-fill {
+    height: 100%;
+    background: linear-gradient(#6fd66f, #3aa33a);
+    transition: width 0.15s ease-out;
+  }
+  #center-msg {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    text-shadow: 2px 2px 4px black;
+    pointer-events: none;
+  }
+  #center-msg h1 {
+    font-size: 48px;
+    margin: 0 0 10px 0;
+    color: #e05555;
+  }
+  #center-msg p {
+    font-size: 18px;
+    margin: 4px 0;
+    color: #ccc;
+  }
+  #upgrade-panel {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(20,20,20,0.92);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 20px 30px;
+    display: none;
+  }
+  #upgrade-panel h2 { margin-top: 0; color: #ffd966; }
+  #upgrade-panel button {
+    display: block;
+    width: 280px;
+    margin: 8px auto;
+    padding: 10px;
+    font-size: 15px;
+    background: #2a2a2a;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #upgrade-panel button:hover { background: #3a3a3a; border-color: #888; }
+  #hidden { display: none; }
+  #loading {
+    position: absolute;
+    inset: 0;
+    background: #0d0d0d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+  #loading .bar-bg {
+    width: 260px;
+    height: 16px;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+  #loading .bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #3aa33a;
+    transition: width 0.1s linear;
+  }
+</style>
+</head>
+<body>
+<div id="game-container">
+  <canvas id="game"></canvas>
+  <div id="hud">
+    <div>Wave <span id="wave-num">1</span></div>
+    <div>Health</div>
+    <div class="bar-bg"><div class="bar-fill" id="hp-fill"></div></div>
+    <div style="margin-top:6px;">Score: <span id="score">0</span></div>
+    <div>Weapon: <span id="weapon-name">Pistol</span></div>
+  </div>
+  <div id="center-msg"></div>
+  <div id="upgrade-panel">
+    <h2>Wave Cleared!</h2>
+    <p id="upgrade-sub">Choose an upgrade:</p>
+    <div id="upgrade-buttons"></div>
+  </div>
+  <div id="loading">
+    <div>Loading assets&hellip;</div>
+    <div class="bar-bg"><div class="bar-fill" id="loading-fill"></div></div>
+  </div>
+</div>
+<script src="src/assets.js"></script>
+<script src="src/tilemap.js"></script>
+<script src="src/animation.js"></script>
+<script src="src/game.js"></script>
+</body>
+</html>
